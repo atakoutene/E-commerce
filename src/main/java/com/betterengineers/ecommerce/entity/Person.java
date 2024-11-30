@@ -12,26 +12,28 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "person_id") // Renamed to class_id format
+    @Column(name = "person_id")
     private Long personId;
-
     private String firstName;
     private String lastName;
     private String address;
     private String phoneNumber;
+    private String email;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     @OneToOne
-    @JoinColumn(name = "user_id") // Renamed to follow class_id format
+    @JoinColumn(name = "user_id")
     private User user;
 
     @PrePersist
     public void prePersist() {
-        // Logic to set creation timestamp
+        this.createdAt = LocalDateTime.now();
     }
 
     @PreUpdate
     public void preUpdate() {
-        // Logic to set update timestamp
+        this.updatedAt = LocalDateTime.now();
     }
 }
 

@@ -14,13 +14,14 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id") // Renamed to class_id format
+    @Column(name = "user_id")
     private Long userId;
-
     private String username;
     private String passwordHash;
     private String email;
     private boolean verified;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
@@ -30,12 +31,12 @@ public class User {
 
     @PrePersist
     public void prePersist() {
-        // Logic to set the creation timestamp
+        this.createdAt = LocalDateTime.now();
     }
 
     @PreUpdate
     public void preUpdate() {
-        // Logic to set the update timestamp
+        this.updatedAt = LocalDateTime.now();
     }
 }
 
